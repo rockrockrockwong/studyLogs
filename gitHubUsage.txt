@@ -5,5 +5,10 @@ How to create a new github repositiroy:
 3. create a new folder mapping to the new created repositiroy
 4. open gitBash 
 5. cd to the new created folder in step 3
-6. run "git init"
-7. 
+6. run git init
+7. run git add somefile
+8. run git commit -m "somecomments "
+9. run git remote add origin https://github.com/rockrockrockwong/studyLogs.git
+10. run "git push -u origin master"
+	Username for 'https://github.com': rockrockrockwong
+
