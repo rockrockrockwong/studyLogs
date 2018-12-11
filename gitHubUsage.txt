@@ -1,0 +1,9 @@
+
+How to create a new github repositiroy:
+1. login https://github.com
+2. create a new repositiroy on github page
+3. create a new folder mapping to the new created repositiroy
+4. open gitBash 
+5. cd to the new created folder in step 3
+6. run "git init"
+7. 
