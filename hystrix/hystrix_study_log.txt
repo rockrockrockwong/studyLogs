@@ -1,0 +1,130 @@
+
+
+
+每个Hystrix参数都有4个地方可以配置，优先级从低到高如下，
+如果每个地方都配置相同的属性，则优先级高的值会覆盖优先级低的值
+1 内置全局默认值：写死在代码里的值
+2 动态全局默认属性：通过属性文件配置全局的值
+3 内置实例默认值：写死在代码里的实例的值
+4 动态配置实例属性：通过属性文件配置特定实例的值
+
+https://blog.csdn.net/hry2015/article/details/78554846
+Hystrix可以配置属性的有以下类型：
+
+Execution：控制HystrixCommand.run() 的如何执行
+	hystrix.command.default.execution.isolation.strategy = THREAD/SEMAPHORE
+	hystrix.command."The Key Defined in HystrixCommand".execution.isolation.strategy = THREAD/SEMAPHORE
+	表示HystrixCommand.run()的执行时的隔离策略，有以下两种策略
+		1 THREAD: 在单独的线程上执行，并发请求受线程池中的线程数限制
+		2 SEMAPHORE: 在调用线程上执行，并发请求量受信号量计数限制
+		在默认情况下，推荐HystrixCommands 使用 thread 隔离策略，HystrixObservableCommand 使用 semaphore 隔离策略。
+	
+	1.是否开启超时设置。默认值：true
+	// 设置所有实例的默认值
+	hystrix.command.default.execution.timeout.enabled=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.execution.timeout.enabled=...
+
+	2.设置调用者执行的超时时间（单位毫秒）默认1000
+	// 设置所有实例的默认值
+	hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.execution.isolation.thread.timeoutInMilliseconds=...
+	
+	3.表示设置是否在执行超时时，中断HystrixCommand.run() 的执行. 默认值：true
+	// 设置所有实例的默认值
+	hystrix.command.default.execution.isolation.thread.interruptOnTimeout=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.execution.isolation.thread.interruptOnTimeout=...
+
+	4.execution.isolation.thread.interruptOnCancel
+	表示设置是否在取消任务执行时，中断HystrixCommand.run() 的执行 默认值：false
+	// 设置所有实例的默认值
+	hystrix.command.default.execution.isolation.thread.interruptOnCancel=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.execution.isolation.thread.interruptOnCancel
+	
+	5.execution.isolation.semaphore.maxConcurrentRequests
+	当HystrixCommand.run()使用SEMAPHORE的隔离策略时，设置最大的并发量	默认值：10
+	// 设置所有实例的默认值
+	hystrix.command.default.execution.isolation.semaphore.maxConcurrentRequests=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.execution.isolation.semaphore.maxConcurrentRequests=...
+	
+Fallback: 控制HystrixCommand.getFallback() 如何执行
+	以下属性控制HystrixCommand.getFallback() 如何执行。这些属性对隔离策略THREAD 和SEMAPHORE都起作用.
+	1. fallback.isolation.semaphore.maxConcurrentRequests
+	此属性设置从调用线程允许HystrixCommand.getFallback（）方法允许的最大并发请求数
+	如果达到最大的并发量，则接下来的请求会被拒绝并且抛出异常.
+	默认值：10
+	// 设置所有实例的默认值
+	hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.fallback.isolation.semaphore.maxConcurrentRequests=...
+	
+	2. fallback.enabled
+	是否开启fallback功能 
+	默认值：true
+	// 设置所有实例的默认值
+	hystrix.command.default.fallback.enabled=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.fallback.enabled=...
+
+Circuit Breaker： 控制断路器的行为
+	控制断路器的行为
+
+	1. circuitBreaker.enabled 
+	是否开启断路器功能
+	默认值：true
+	// 设置所有实例的默认值
+	hystrix.command.default.circuitBreaker.enabled=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.circuitBreaker.enabled=...
+
+	2. circuitBreaker.requestVolumeThreshold
+	该属性设置滚动窗口中将使断路器跳闸的最小请求数量
+	如果此属性值为20，则在窗口时间内（如10s内），如果只收到19个请求且都失败了，则断路器也不会开启。
+	默认值：20
+	// 设置所有实例的默认值
+	hystrix.command.default.circuitBreaker.requestVolumeThreshold=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.circuitBreaker.requestVolumeThreshold=...
+
+	3. circuitBreaker.sleepWindowInMilliseconds **
+	断路器跳闸后，在此值的时间的内，hystrix会拒绝新的请求，只有过了这个时间断路器才会打开闸门
+	默认值：5000
+	// 设置所有实例的默认值
+	hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.circuitBreaker.sleepWindowInMilliseconds=...
+
+	4. circuitBreaker.errorThresholdPercentag
+	设置失败百分比的阈值。如果失败比率超过这个值，则断路器跳闸并且进入fallback逻辑
+	默认值：50
+	// 设置所有实例的默认值
+	hystrix.command.default.circuitBreaker=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.circuitBreaker.errorThresholdPercentage=...
+
+	5. circuitBreaker.forceOpen
+	如果设置true，则强制使断路器跳闸，则会拒绝所有的请求.此值会覆盖circuitBreaker.forceClosed的值
+	默认值：false
+	// 设置所有实例的默认值
+	hystrix.command.default.circuitBreaker.forceOpen=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.circuitBreaker.forceOpen=...
+
+	6. circuitBreaker.forceClosed
+	如果设置true，则强制使断路器进行关闭状态，此时会允许执行所有请求，
+	无论是否失败的次数达到circuitBreaker.errorThresholdPercentage值
+	默认值：false
+	// 设置所有实例的默认值
+	hystrix.command.default.circuitBreaker.forceClosed=...
+	// 设置实例HystrixCommandKey的此属性值
+	hystrix.command.HystrixCommandKey.circuitBreaker.forceClosed=...
+
+Metrics: 捕获和HystrixCommand 和 HystrixObservableCommand 执行信息相关的配置属性
+	
+Request Context：设置请求上下文的属性
+Collapser Properties：设置请求合并的属性
+Thread Pool Properties：设置线程池的属性

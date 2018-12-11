@@ -1,0 +1,11 @@
+IDEA mavent settings:
+C:\Users\IBM_ADMIN\.m2\settings.xml
+C:\Users\IBM_ADMIN\.m2\repository
+
+SelfDefined settings:
+E:\Files\Meterials_InvestmentProject\source\mavenLocalConf\setting.xml
+
+
+Docker:
+docker run -p 192.168.137.1:9411:9411 c5cd3c84c35d
+docker run -p 9411:9411 c5cd3c84c35d
