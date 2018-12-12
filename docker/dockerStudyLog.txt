@@ -497,6 +497,10 @@ You can use other tools to help solve problems with orchestrated,
 containerized applications in production, including Docker Swarm and the IBM Cloud Kubernetes Service.
 
 
+##拉取一个镜像(image)
+##拉取rabbitMQ镜像,如果本地不存在这个镜像，从远程仓库下载
+docker pull rabbitmq:management
+
 
 
 

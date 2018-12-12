@@ -12,3 +12,57 @@ How to create a new github repositiroy:
 10. run "git push -u origin master"
 	Username for 'https://github.com': rockrockrockwong
 
+//git 创建分支
+#创建新的的分支
+Chang Lin@IBM-062987 MINGW64 /e/files/github/configs (master)
+$ git checkout -b test
+M       product-service-dev.yml
+M       product-service-test.yml
+Switched to a new branch 'test'
+#把新的分支提交到远程仓库
+Chang Lin@IBM-062987 MINGW64 /e/files/github/configs (test)
+$ git push origin test
+Username for 'https://github.com': rockrockrockwong
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 518 bytes | 0 bytes/s, done.
+Total 4 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+remote:
+remote: Create a pull request for 'test' on GitHub by visiting:
+remote:      https://github.com/rockrockrockwong/configs/pull/new/test
+remote:
+To https://github.com/rockrockrockwong/configs.git
+ * [new branch]      test -> test
+
+//git 分支命令
+#列出远程分支
+git branch -r 
+#列出所有分支
+git branch -a
+#查看分支：
+git branch
+#创建分支：
+git branch <name>
+#切换分支：
+git checkout <name>
+#创建+切换分支：
+git checkout -b <name>
+#合并某分支到当前分支：
+git merge <name>
+#删除分支：
+git branch -d <name>
+
+
+
+
+
+
+
+
+
+
+
+
+
