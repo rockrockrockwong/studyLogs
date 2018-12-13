@@ -1,0 +1,6 @@
+
+docker 启动 nginx 镜像, 可以启动多个容器，根据需求订
+docker run -d --name "myNginx" -p 8088:80 nginx
+docker run -d --name "myNginx2" -p 8089:80 nginx
+
+http://192.168.99.100:8088/
