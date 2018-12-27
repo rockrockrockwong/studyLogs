@@ -1,3 +1,47 @@
 
+new Vue(
+	el: '作用范围',				//.class-name 或者 #id
+	data: ’json 格式的数据'
+)
+
+如何输出？
+在“作用范围”内放入“{{数据变量名称}}”
+
+v-show: display=true/false
+
+//数组
+<div v-for='(index,e) in arr'>
+	{{index}}:{{e}}
+</div>
+//json串
+<div v-for='(value,key) in jsonData'>
+	{{key}}:{{value}}
+</div>
+//绑定
+<div >
+	<input type="" name="" v-model='model_msg' />{{model_msg}}
+</div>
+//简单事件 v-on:click = @click
+<div v-on:click='sayHello'>
+	click me say hello
+</div>
+//参数传递及事件参数$event
+<div>
+	<input type="button" name="" value="checkEvent" v-on:click="checkEvent('helloRock',$event)">
+</div>
+//防止冒泡
+1.event.cancelBubble=true
+2.event.stopPropagation()
+3.@click.stop  --推荐
+//数据只渲染一次, 默认数据改变的话会重新渲染
+{{*msg}}
+//
+{{}} ==> document.body.innerText
+{{{}}} ==> document.body.innerHtml
+//vue属性
+v-bind:属性名='vue的数据' like:
+v-bind:url='url'
+v-bind:style
+v-bind:class
 
 
